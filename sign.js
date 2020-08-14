@@ -12,8 +12,8 @@ let sign = function (user, message) {
       });
       
       // Add to the guestbook.
-      file.set("a.new.field.as.object", {
-          user: user,
+	  path = "guestbook.signature." + user
+      file.set(path, {
 		  message: message,
       });
 	  
