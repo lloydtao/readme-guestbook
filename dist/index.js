@@ -109,12 +109,13 @@ async function run() {
   try {
     /// Get inputs.
     core.info('Getting input variables...');
+    const path = core.getInput('path');
     const user = core.getInput('user');
     const message = core.getInput('message');
 
     /// Sign profile.
     core.info(`Signing under \"${user}\", with message \"${message}\"...`);
-    await sign(user, message);
+    await sign(path, user, message);
 
     /// Complete action.
     core.info((new Date()).toTimeString());
@@ -136,27 +137,27 @@ run();
 
 const editJsonFile = __webpack_require__(827);
 
-let sign = function (user, message) {
+let sign = function (path, user, message) {
   return new Promise((resolve) => {
       // Create the guestbook if it doesn't exist.
-      let file = editJsonFile(__webpack_require__.ab + "guestbook.json");
+	  filepath = path + "/guestbook.json";
+      let file = editJsonFile(filepath);
       file.save();
       
       // Reload it from the disk.
-      file = editJsonFile(__webpack_require__.ab + "guestbook.json", {
+      file = editJsonFile(filepath, {
           autosave: true
       });
       
       // Add to the guestbook.
-      path = "guestbook.signature." + user
-      file.set(path, {
+      jsonpath = "guestbook.signature." + user
+      file.set(jsonpath, {
           message: message,
       });
       
       // Output and save the guestbook.
-      console.log(__webpack_require__.ab + "guestbook.json");
+      console.log(filepath);
       console.log(file.toObject());
-      file.save();
   });
 };
 
