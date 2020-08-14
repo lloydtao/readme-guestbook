@@ -1,26 +1,26 @@
 const editJsonFile = require("edit-json-file");
 
-let sign = function (user, message) {
+let sign = function (path, user, message) {
   return new Promise((resolve) => {
       // Create the guestbook if it doesn't exist.
-      let file = editJsonFile(`${__dirname}/guestbook.json`);
+	  filepath = path + "/guestbook.json";
+      let file = editJsonFile(filepath);
       file.save();
       
       // Reload it from the disk.
-      file = editJsonFile(`${__dirname}/guestbook.json`, {
+      file = editJsonFile(filepath, {
           autosave: true
       });
       
       // Add to the guestbook.
-      path = "guestbook.signature." + user
-      file.set(path, {
+      jsonpath = "guestbook.signature." + user
+      file.set(jsonpath, {
           message: message,
       });
       
       // Output and save the guestbook.
-      console.log(`${__dirname}/guestbook.json`);
+      console.log(filepath);
       console.log(file.toObject());
-      file.save();
   });
 };
 
