@@ -5,6 +5,9 @@ branding:
   icon: 'edit-3'  
   color: 'green'
 inputs:
+  path:
+    description: The checked-out branch from actions/checkout (github.workspace).
+    required: true
   user:
     description: The issue creator, used as the signatory.
     required: true
