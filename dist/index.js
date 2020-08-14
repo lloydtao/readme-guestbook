@@ -134,7 +134,6 @@ run();
 /***/ 166:
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-const { Octokit } = __webpack_require__(313);
 const editJsonFile = __webpack_require__(827);
 
 let sign = function (user, message) {
@@ -160,14 +159,6 @@ let sign = function (user, message) {
 };
 
 module.exports = sign;
-
-
-/***/ }),
-
-/***/ 313:
-/***/ (function(module) {
-
-module.exports = eval("require")("@octokit/rest");
 
 
 /***/ }),
