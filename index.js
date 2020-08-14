@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-// const sign = require('./sign');
+const sign = require('./sign');
 
 
 async function run() {
@@ -11,7 +11,7 @@ async function run() {
 
     /// Sign profile.
     core.info(`Signing under \"${user}\", with message \"${message}\"...`);
-    // await sign(user, message);
+    await sign(user, message);
 
     /// Complete action.
     core.info((new Date()).toTimeString());
