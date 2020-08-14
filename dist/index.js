@@ -139,21 +139,22 @@ const editJsonFile = __webpack_require__(827);
 let sign = function (user, message) {
   return new Promise((resolve) => {
       // Create the guestbook if it doesn't exist.
-      let file = editJsonFile(`${__dirname}/guestbook.json`);
+      let file = editJsonFile(__webpack_require__.ab + "guestbook.json");
       file.save();
       
       // Reload it from the disk.
-      file = editJsonFile(`${__dirname}/guestbook.json`, {
+      file = editJsonFile(__webpack_require__.ab + "guestbook.json", {
           autosave: true
       });
       
       // Add to the guestbook.
-	  path = "guestbook.signature." + user
+      path = "guestbook.signature." + user
       file.set(path, {
-		  message: message,
+          message: message,
       });
-	  
-	  // Output and save the guestbook.
+      
+      // Output and save the guestbook.
+      console.log(__webpack_require__.ab + "guestbook.json");
       console.log(file.toObject());
       file.save();
   });
