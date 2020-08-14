@@ -17,8 +17,9 @@ let sign = function (user, message) {
 		  message: message,
       });
 	  
-	  // Output the guestbook.
+	  // Output and save the guestbook.
       console.log(file.toObject());
+      file.save();
   });
 };
 
