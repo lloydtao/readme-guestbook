@@ -12,12 +12,13 @@ let sign = function (user, message) {
       });
       
       // Add to the guestbook.
-	  path = "guestbook.signature." + user
+      path = "guestbook.signature." + user
       file.set(path, {
-		  message: message,
+          message: message,
       });
-	  
-	  // Output and save the guestbook.
+      
+      // Output and save the guestbook.
+      console.log(`${__dirname}/guestbook.json`);
       console.log(file.toObject());
       file.save();
   });
