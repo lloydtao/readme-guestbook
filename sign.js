@@ -1,4 +1,3 @@
-const { Octokit } = require("@octokit/rest");
 const editJsonFile = require("edit-json-file");
 
 let sign = function (user, message) {
