@@ -49,6 +49,13 @@ require('./sourcemap-register.js');module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ 58:
+/***/ (function(module) {
+
+module.exports = require("readline");
+
+/***/ }),
+
 /***/ 70:
 /***/ (function(module) {
 
@@ -103,20 +110,70 @@ module.exports = require("os");
 
 const core = __webpack_require__(470);
 const sign = __webpack_require__(166);
+const fs = __webpack_require__(747);
+const readline = __webpack_require__(58);
 
 
 async function run() {
   try {
     /// Get inputs.
     core.info('Getting input variables...');
-    const path = core.getInput('path');
+    const path = ".";
     const user = core.getInput('user');
     const message = core.getInput('message');
 
-    /// Sign profile.
+    /// Add signature to guestbook.
     core.info(`Signing under \"${user}\", with message \"${message}\"...`);
-    await sign(path, user, message);
-
+    sign(path, user, message);
+    
+    /// Generate table from new guestbook.
+    // Set up table.
+    var table = [];
+    var guestbook = JSON.parse(JSON.stringify(__webpack_require__(964)));
+    
+    table.push("\r\r");
+    table.push("| User | Message |");
+	table.push("\r");
+    table.push("| ---- | ------- |");
+	table.push("\r");
+    for(var i = 0; i < Object.keys(guestbook.signatures).length; i++) {
+        var guestbookUser = Object.keys(guestbook.signatures)[i];
+        var guestbookMessage = guestbook.signatures[guestbookUser].message;
+        table.push("| " + guestbookUser + " | " + guestbookMessage + " |");
+	    table.push("\r");
+    }
+    
+    /// Prepare README
+    // Read current README into array.
+    var readme = []; 
+	var fs = __webpack_require__(747);
+    var array = fs.readFileSync(path + "/README.md").toString().split("\r");
+    for(i in array) {
+        readme.push(array[i]);
+    }
+    
+    // Find start and end points.
+    var startString = "<!-- start readme guestbook SsvfkAhv -->";
+    var start = readme.findIndex(element => element.includes(startString));
+    
+    var endString = "<!-- end readme guestbook SsvfkAhv -->";
+    var end = readme.findIndex(element => element.includes(endString));
+    
+    /// Render README.
+    // Create new readme by splicing.
+    var output = readme.slice(0, start + 1).concat(table).concat(readme.slice(end));
+	console.info();
+	
+	
+	// Save array as README.
+	fs.writeFile(path + "/README.md", output.join(' '), function(err) {
+    if(err) {
+        return console.log(err);
+    }
+	
+    console.log("The file was saved!");
+    });
+    
     /// Complete action.
     core.info((new Date()).toTimeString());
     core.setOutput('time', new Date().toTimeString());
@@ -150,7 +207,7 @@ let sign = function (path, user, message) {
       });
       
       // Add to the guestbook.
-      jsonpath = "guestbook.signature." + user
+      jsonpath = "signatures." + user;
       file.set(jsonpath, {
           message: message,
       });
@@ -997,6 +1054,13 @@ module.exports = function isPlainObject(o) {
   return true;
 };
 
+
+/***/ }),
+
+/***/ 964:
+/***/ (function(module) {
+
+module.exports = {"signatures":{"":{"message":""},"guaranteed to work":{"message":"LloydTao"},"LloydTao":{"message":"actually guaranteed to work"}}};
 
 /***/ })
 

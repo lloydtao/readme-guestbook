@@ -13,7 +13,7 @@ let sign = function (path, user, message) {
       });
       
       // Add to the guestbook.
-      jsonpath = "guestbook.signature." + user
+      jsonpath = "signatures." + user;
       file.set(jsonpath, {
           message: message,
       });
