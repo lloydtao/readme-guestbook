@@ -108,9 +108,6 @@ module.exports = require("os");
 /***/ 104:
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
-function __ncc_wildcard$0 (arg) {
-  if (arg === "C:/Users/Lewis/Documents/GitHub/profile-readme-guestbook/") return __webpack_require__(964);
-}
 const core = __webpack_require__(470);
 const sign = __webpack_require__(166);
 const fs = __webpack_require__(747);
@@ -133,8 +130,9 @@ async function run() {
     /// Generate table from new guestbook.
     // Set up table.
     var table = [];
-    var guestbook = JSON.parse(JSON.stringify(__ncc_wildcard$0(path)));
-	core.info(guestbook);
+	var filepath = path + "/guestbook.json";
+	core.info(filepath);
+    var guestbook = JSON.parse(JSON.stringify(require(filepath)));
     
     table.push("\r\r");
     table.push("| User | Message |");
@@ -1059,13 +1057,6 @@ module.exports = function isPlainObject(o) {
   return true;
 };
 
-
-/***/ }),
-
-/***/ 964:
-/***/ (function(module) {
-
-module.exports = {"signatures":{"":{"message":""},"guaranteed to work":{"message":"LloydTao"},"LloydTao":{"message":"actually guaranteed to work"}}};
 
 /***/ })
 

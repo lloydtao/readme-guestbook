@@ -20,8 +20,9 @@ async function run() {
     /// Generate table from new guestbook.
     // Set up table.
     var table = [];
-    var guestbook = JSON.parse(JSON.stringify(require(path + "/guestbook.json")));
-	core.info(guestbook);
+	var filepath = path + "/guestbook.json";
+	core.info(filepath);
+    var guestbook = JSON.parse(JSON.stringify(require(filepath)));
     
     table.push("\r\r");
     table.push("| User | Message |");
