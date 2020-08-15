@@ -4,7 +4,7 @@ const fs = require('fs');
 const readline = require('readline');
 
 
-async function run() {
+function run() {
   try {
     /// Get inputs.
     core.info('Getting input variables...');
