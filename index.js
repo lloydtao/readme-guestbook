@@ -8,7 +8,7 @@ async function run() {
   try {
     /// Get inputs.
     core.info('Getting input variables...');
-    const path = ".";
+    const path = core.getInput('path');
     const user = core.getInput('user');
     const message = core.getInput('message');
 
@@ -16,6 +16,7 @@ async function run() {
     core.info(`Signing under \"${user}\", with message \"${message}\"...`);
     sign(path, user, message);
     
+	core.info("Creating table from guestbook...");
     /// Generate table from new guestbook.
     // Set up table.
     var table = [];
@@ -33,6 +34,7 @@ async function run() {
 	    table.push("\r");
     }
     
+	core.info("Loading current README...");
     /// Prepare README
     // Read current README into array.
     var readme = []; 
@@ -49,18 +51,17 @@ async function run() {
     var endString = "<!-- end readme guestbook SsvfkAhv -->";
     var end = readme.findIndex(element => element.includes(endString));
     
+	core.info("Inserting guestbook into README...");
     /// Render README.
     // Create new readme by splicing.
     var output = readme.slice(0, start + 1).concat(table).concat(readme.slice(end));
-	console.info();
 	
-	
+	core.info("Inserting guestbook into README...");
 	// Save array as README.
 	fs.writeFile(path + "/README.md", output.join(' '), function(err) {
     if(err) {
         return console.log(err);
     }
-	
     console.log("The file was saved!");
     });
     

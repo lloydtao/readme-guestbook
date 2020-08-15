@@ -49,6 +49,13 @@ require('./sourcemap-register.js');module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ 9:
+/***/ (function(module) {
+
+module.exports = {"guestbook":{"signature":{"":{"message":""}}}};
+
+/***/ }),
+
 /***/ 58:
 /***/ (function(module) {
 
@@ -108,6 +115,10 @@ module.exports = require("os");
 /***/ 104:
 /***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
 
+function __ncc_wildcard$0 (arg) {
+  if (arg === "C:/Users/Lewis/Documents/GitHub/profile-readme-guestbook/") return __webpack_require__(9);
+  else if (arg === "C:/Users/Lewis/Documents/GitHub/profile-readme-guestbook/") return __webpack_require__(964);
+}
 const core = __webpack_require__(470);
 const sign = __webpack_require__(166);
 const fs = __webpack_require__(747);
@@ -118,7 +129,7 @@ async function run() {
   try {
     /// Get inputs.
     core.info('Getting input variables...');
-    const path = ".";
+    const path = core.getInput('path');
     const user = core.getInput('user');
     const message = core.getInput('message');
 
@@ -126,10 +137,11 @@ async function run() {
     core.info(`Signing under \"${user}\", with message \"${message}\"...`);
     sign(path, user, message);
     
+	core.info("Creating table from guestbook...");
     /// Generate table from new guestbook.
     // Set up table.
     var table = [];
-    var guestbook = JSON.parse(JSON.stringify(__webpack_require__(964)));
+    var guestbook = JSON.parse(JSON.stringify(__ncc_wildcard$0(path)));
     
     table.push("\r\r");
     table.push("| User | Message |");
@@ -143,6 +155,7 @@ async function run() {
 	    table.push("\r");
     }
     
+	core.info("Loading current README...");
     /// Prepare README
     // Read current README into array.
     var readme = []; 
@@ -159,18 +172,17 @@ async function run() {
     var endString = "<!-- end readme guestbook SsvfkAhv -->";
     var end = readme.findIndex(element => element.includes(endString));
     
+	core.info("Inserting guestbook into README...");
     /// Render README.
     // Create new readme by splicing.
     var output = readme.slice(0, start + 1).concat(table).concat(readme.slice(end));
-	console.info();
 	
-	
+	core.info("Inserting guestbook into README...");
 	// Save array as README.
 	fs.writeFile(path + "/README.md", output.join(' '), function(err) {
     if(err) {
         return console.log(err);
     }
-	
     console.log("The file was saved!");
     });
     
