@@ -48,12 +48,15 @@ function run() {
     }
 	core.info(readme);
     
+	core.info("Finding start and end points...");
     // Find start and end points.
     var startString = "<!-- start readme guestbook SsvfkAhv -->";
     var start = readme.findIndex(element => element.includes(startString));
+	core.info(start);
     
     var endString = "<!-- end readme guestbook SsvfkAhv -->";
     var end = readme.findIndex(element => element.includes(endString));
+	core.info(end);
     
 	core.info("Inserting guestbook into README...");
     /// Render README.
