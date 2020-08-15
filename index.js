@@ -21,6 +21,7 @@ async function run() {
     // Set up table.
     var table = [];
     var guestbook = JSON.parse(JSON.stringify(require(path + "/guestbook.json")));
+	core.info(guestbook);
     
     table.push("\r\r");
     table.push("| User | Message |");
