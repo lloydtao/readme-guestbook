@@ -63,7 +63,7 @@ function run() {
 	
 	core.info("Writing new README...");
 	// Save array as README.
-	fs.writeFile(path + "/README.md", output.join(' '), function(err) {
+	fs.writeFileSync(path + "/README.md", output.join(' '), function(err) {
     if(err) {
         return console.log(err);
     }
