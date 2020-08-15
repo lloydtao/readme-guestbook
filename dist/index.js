@@ -114,7 +114,7 @@ const fs = __webpack_require__(747);
 const readline = __webpack_require__(58);
 
 
-async function run() {
+function run() {
   try {
     /// Get inputs.
     core.info('Getting input variables...');
@@ -131,8 +131,8 @@ async function run() {
     // Set up table.
     var table = [];
 	var filepath = path + "/guestbook.json";
-	core.info(filepath);
     var guestbook = JSON.parse(JSON.stringify(require(filepath)));
+	core.info(guestbook);
     
     table.push("\r\r");
     table.push("| User | Message |");
@@ -145,6 +145,7 @@ async function run() {
         table.push("| " + guestbookUser + " | " + guestbookMessage + " |");
 	    table.push("\r");
     }
+	core.info(table);
     
 	core.info("Loading current README...");
     /// Prepare README
@@ -155,6 +156,7 @@ async function run() {
     for(i in array) {
         readme.push(array[i]);
     }
+	core.info(readme);
     
     // Find start and end points.
     var startString = "<!-- start readme guestbook SsvfkAhv -->";
@@ -167,8 +169,9 @@ async function run() {
     /// Render README.
     // Create new readme by splicing.
     var output = readme.slice(0, start + 1).concat(table).concat(readme.slice(end));
+	core.info(output);
 	
-	core.info("Inserting guestbook into README...");
+	core.info("Writing new README...");
 	// Save array as README.
 	fs.writeFile(path + "/README.md", output.join(' '), function(err) {
     if(err) {
